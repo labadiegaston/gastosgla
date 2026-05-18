@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="Gastos GLA"/>
-<title>Gastos GLA</title>
+<meta name="apple-mobile-web-app-title" content="Gastos BDD"/>
+<title>Gastos BDD</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -15,31 +15,19 @@ body{font-family:'DM Sans',sans-serif;color:#F0EEE8;max-width:430px;margin:0 aut
 button{cursor:pointer;border:none;font-family:'DM Sans',sans-serif;color:inherit;}
 input{outline:none;border:none;font-family:'DM Sans',sans-serif;}
 ::-webkit-scrollbar{display:none;}
-
 #app{padding-bottom:90px;min-height:100vh;}
-
 .header{padding:52px 24px 12px;display:flex;justify-content:space-between;align-items:flex-start;}
-
-/* Bottom nav */
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#0F0F13;border-top:1px solid #1a1a22;display:flex;padding:10px 0 28px;z-index:50;}
 .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:transparent;border:none;color:#333;transition:color 0.15s;}
 .nav-btn.active{color:#F0EEE8;}
 .nav-btn span:first-child{font-size:17px;}
 .nav-btn.big-icon span:first-child{font-size:22px;}
 .nav-btn span:last-child{font-size:9px;letter-spacing:0.5px;font-weight:600;}
-
-/* Cards */
 .card{background:#16161C;border-radius:22px;padding:18px 20px;margin-bottom:12px;border:1px solid #1e1e26;}
-
-/* Currency pills */
 .cur-pill{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:0.5px;transition:all 0.15s;background:#222;color:#555;}
 .cur-pill.active{background:#F0EEE8;color:#0F0F13;}
-
-/* Amount */
 .amount-display{font-family:'DM Mono',monospace;letter-spacing:-1px;min-height:54px;display:flex;align-items:center;color:#252530;font-size:44px;}
 .amount-display.has-value{color:#F0EEE8;}
-
-/* Category */
 .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;}
 .cat-btn{border-radius:16px;padding:11px 4px;display:flex;flex-direction:column;align-items:center;gap:5px;border:2px solid #1e1e26;background:#16161C;transition:all 0.15s;}
 .cat-btn.selected{border-width:2px;}
@@ -47,26 +35,18 @@ input{outline:none;border:none;font-family:'DM Sans',sans-serif;}
 .cat-btn span:last-child{font-size:9px;font-weight:600;letter-spacing:0.3px;color:#555;}
 .cat-btn.selected span:last-child{color:#fff;}
 .cat-add{background:#16161C;border:2px dashed #2a2a35;border-radius:16px;padding:11px 4px;display:flex;flex-direction:column;align-items:center;gap:5px;}
-
-/* Numpad */
 .numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px;}
 .num-btn{background:#16161C;border-radius:14px;height:58px;font-size:21px;font-family:'DM Mono',monospace;color:#F0EEE8;border:1px solid #1e1e26;}
 .num-btn:active{background:#2a2a35;}
 .num-btn.del{background:#1a1a22;font-size:18px;color:#555;}
-
-/* Save */
 .save-btn{width:100%;height:58px;border-radius:18px;font-size:16px;font-weight:600;letter-spacing:0.3px;transition:all 0.2s;background:#16161C;border:1px solid #1e1e26;color:#2a2a35;}
 .save-btn.ready{background:#F0EEE8;color:#0F0F13;border:none;}
 .save-btn.shared-ready{background:#9B6EFF;color:#fff;border:none;}
 .save-btn.done{background:#26C6A6;color:#fff;border:none;}
-
-/* Toggle */
 .toggle{width:46px;height:26px;border-radius:13px;position:relative;transition:background 0.25s;flex-shrink:0;background:#2a2a35;}
 .toggle.on{background:#9B6EFF;}
 .toggle-knob{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#F0EEE8;transition:left 0.22s;}
 .toggle.on .toggle-knob{left:23px;box-shadow:0 0 10px #9B6EFF99;}
-
-/* History */
 .filter-pill{padding:6px 13px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid #1e1e26;background:#16161C;color:#555;}
 .filter-pill.active{background:#F0EEE8;color:#0F0F13;border:none;}
 .expense-card{background:#16161C;border-radius:16px;padding:13px 15px;margin-bottom:7px;display:flex;align-items:center;gap:11px;border:1px solid #1e1e26;}
@@ -74,11 +54,7 @@ input{outline:none;border:none;font-family:'DM Sans',sans-serif;}
 .cat-icon{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
 .shared-badge{font-size:9px;background:#9B6EFF22;color:#C4AAFF;padding:1px 6px;border-radius:6px;font-weight:700;}
 .del-btn{font-size:11px;color:#2a2a35;background:transparent;border:none;cursor:pointer;margin-top:2px;}
-
-/* Settings */
 .settings-cat{background:#16161C;border-radius:14px;padding:13px 15px;display:flex;align-items:center;gap:11px;border:1px solid #1e1e26;margin-bottom:7px;}
-
-/* Modal */
 .modal-overlay{position:fixed;inset:0;background:#000000cc;display:flex;align-items:flex-end;justify-content:center;z-index:100;}
 .modal-box{background:#16161C;border-radius:24px 24px 0 0;padding:24px 22px 52px;width:100%;max-width:430px;border:1px solid #222;}
 .modal-input{width:100%;background:#0F0F13;border:1px solid #2a2a35;border-radius:12px;padding:13px 15px;font-size:15px;color:#F0EEE8;margin-bottom:16px;font-family:'DM Sans',sans-serif;}
@@ -89,16 +65,26 @@ input{outline:none;border:none;font-family:'DM Sans',sans-serif;}
 .color-dot.selected{border-color:#F0EEE8;}
 .modal-save{width:100%;height:52px;border-radius:14px;font-size:15px;font-weight:600;background:#222;color:#555;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .modal-save.ready{background:#F0EEE8;color:#0F0F13;}
-
 .section-lbl{font-size:10px;color:#333;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;padding-left:2px;}
 .tap:active{transform:scale(0.91);}
+
+/* Export button */
+.export-btn{width:100%;height:50px;border-radius:14px;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #2a2a35;background:#16161C;color:#888;cursor:pointer;transition:all 0.15s;}
+.export-btn:active{background:#222;}
+
+/* Export modal */
+.export-modal-box{background:#16161C;border-radius:24px 24px 0 0;padding:24px 22px 52px;width:100%;max-width:430px;border:1px solid #222;}
+.export-option{background:#0F0F13;border-radius:14px;padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;border:1px solid #2a2a35;cursor:pointer;transition:background 0.15s;}
+.export-option:active{background:#1a1a22;}
+.export-option-icon{font-size:24px;}
+.export-option-title{font-size:14px;font-weight:600;color:#F0EEE8;margin-bottom:2px;}
+.export-option-desc{font-size:11px;color:#555;}
 </style>
 </head>
 <body>
 <div id="app"></div>
 
 <script>
-// ── Constants ──
 const DEFAULT_CATS = [
   {id:"hogar",  label:"Hogar",      emoji:"🏠", color:"#4A90D9"},
   {id:"salud",  label:"Salud",      emoji:"💊", color:"#E8A838"},
@@ -114,48 +100,83 @@ const MONTHS = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto
 const SK_EXP = "bdd_exp_v3";
 const SK_CAT = "bdd_cat_v3";
 
-// ── State ──
 const S = {
-  screen:      "home",
-  expenses:    load(SK_EXP, []),
-  categories:  load(SK_CAT, DEFAULT_CATS),
-  amount:      "",
-  currency:    "UYU",
-  selCat:      null,
-  note:        "",
-  shared:      false,
-  saved:       false,
-  filter:      "all",
-  modal:       false,
-  newLabel:    "",
-  newEmoji:    "📌",
-  newColor:    "#26C6A6",
+  screen:"home", expenses:load(SK_EXP,[]), categories:load(SK_CAT,DEFAULT_CATS),
+  amount:"", currency:"UYU", selCat:null, note:"", shared:false, saved:false,
+  filter:"all", modal:false, exportModal:false,
+  newLabel:"", newEmoji:"📌", newColor:"#26C6A6",
 };
 
-function load(key, def) {
-  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : def; } catch { return def; }
-}
-function persist() {
-  localStorage.setItem(SK_EXP, JSON.stringify(S.expenses));
-  localStorage.setItem(SK_CAT, JSON.stringify(S.categories));
-}
+function load(key,def){ try{const v=localStorage.getItem(key);return v?JSON.parse(v):def;}catch{return def;} }
+function persist(){ localStorage.setItem(SK_EXP,JSON.stringify(S.expenses)); localStorage.setItem(SK_CAT,JSON.stringify(S.categories)); }
 
-// ── Helpers ──
-function today() {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
-}
-function monthLabel() {
-  const d = new Date(); return `${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
-}
-function fmtDate(s) { const [y,m,d]=s.split("-"); return `${d}/${m}/${y.slice(2)}`; }
-function fmtAmt(a, c) {
+function today(){ const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
+function monthLabel(){ const d=new Date(); return `${MONTHS[d.getMonth()]} ${d.getFullYear()}`; }
+function fmtDate(s){ const[y,m,d]=s.split("-"); return `${d}/${m}/${y.slice(2)}`; }
+function fmtAmt(a,c){
   if(c==="USD") return `U$S ${a.toLocaleString("es-UY",{minimumFractionDigits:2,maximumFractionDigits:2})}`;
   if(c==="ARS") return `AR$ ${Math.round(a).toLocaleString("es-AR")}`;
   return `$ ${Math.round(a).toLocaleString("es-UY")}`;
 }
-function curSym(c) { return c==="USD"?"U$S ":c==="ARS"?"AR$ ":"$ "; }
-function getCat(id) { return S.categories.find(c=>c.id===id)||{label:"?",emoji:"❓",color:"#999"}; }
+function curSym(c){ return c==="USD"?"U$S ":c==="ARS"?"AR$ ":"$ "; }
+function getCat(id){ return S.categories.find(c=>c.id===id)||{label:"?",emoji:"❓",color:"#999"}; }
+
+// ── CSV Export ──
+function exportCSV(period) {
+  let rows = S.expenses;
+
+  if(period==="month") {
+    const thisMo = today().slice(0,7);
+    rows = rows.filter(e=>e.date.startsWith(thisMo));
+  }
+
+  if(!rows.length) { alert("No hay gastos para exportar."); return; }
+
+  // Sort by date desc
+  rows = [...rows].sort((a,b)=>b.date.localeCompare(a.date));
+
+  const header = ["Fecha","Categoría","Monto","Moneda","Compartido","Nota"];
+  const lines = [header.join(",")];
+
+  rows.forEach(e=>{
+    const cat = getCat(e.categoryId);
+    const note = (e.note||"").replace(/,/g," ").replace(/\n/g," ");
+    lines.push([
+      fmtDate(e.date),
+      cat.label,
+      e.amount.toString().replace(".",","),
+      e.currency,
+      e.shared?"Sí":"No",
+      note
+    ].join(","));
+  });
+
+  // Add summary rows
+  lines.push("");
+  lines.push("RESUMEN,,,,,,");
+  ["UYU","USD","ARS"].forEach(cur=>{
+    const total = rows.filter(e=>e.currency===cur).reduce((s,e)=>s+e.amount,0);
+    if(total>0) lines.push(`Total ${cur},${Math.round(total)},${cur},,,`);
+  });
+  const shTotal = rows.filter(e=>e.shared).length;
+  if(shTotal>0) lines.push(`Gastos compartidos,${shTotal} gastos,,,`);
+
+  const csv = "\uFEFF" + lines.join("\n"); // BOM for Excel UTF-8
+  const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+  const url  = URL.createObjectURL(blob);
+
+  const label = period==="month" ? monthLabel().replace(" ","_") : "todos";
+  const fname = `gastos_bdd_${label}.csv`;
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = fname;
+  a.click();
+  URL.revokeObjectURL(url);
+
+  S.exportModal = false;
+  render();
+}
 
 // ── Render ──
 function render() {
@@ -169,14 +190,13 @@ function render() {
   const canSave = S.amount && S.selCat;
   const amtFs  = S.amount ? Math.min(50,Math.max(26,50-S.amount.length*1.8)) : 44;
 
-  // Header totals
-  let tots = "";
+  let tots="";
   if(tUYU>0) tots+=`<span style="font-size:13px;color:#888">$ ${Math.round(tUYU).toLocaleString("es-UY")} <span style="color:#444">UYU</span></span>`;
   if(tUSD>0) tots+=`<span style="font-size:13px;color:#888">U$S ${tUSD.toFixed(2)} <span style="color:#444">USD</span></span>`;
   if(tARS>0) tots+=`<span style="font-size:13px;color:#888">AR$ ${Math.round(tARS).toLocaleString("es-AR")} <span style="color:#444">ARS</span></span>`;
   if(!tUYU&&!tUSD&&!tARS) tots=`<span style="font-size:13px;color:#333">Sin gastos este mes</span>`;
 
-  let html = `<div class="header">
+  let html=`<div class="header">
     <div>
       <div style="font-size:11px;letter-spacing:2px;color:#555;text-transform:uppercase;margin-bottom:5px">${monthLabel()}</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px 14px">${tots}</div>
@@ -185,41 +205,31 @@ function render() {
     <div style="font-size:22px;opacity:0.45">💲</div>
   </div>`;
 
-  // ── HOME ──
-  if(S.screen==="home") {
-    const pills = ["UYU","USD","ARS"].map(c=>
-      `<button class="cur-pill${S.currency===c?" active":""}" data-action="currency" data-val="${c}">${c}</button>`
-    ).join("");
-
-    const cats = S.categories.map(cat=>{
-      const sel = S.selCat===cat.id;
+  // HOME
+  if(S.screen==="home"){
+    const pills=["UYU","USD","ARS"].map(c=>
+      `<button class="cur-pill${S.currency===c?" active":""}" data-action="currency" data-val="${c}">${c}</button>`).join("");
+    const cats=S.categories.map(cat=>{
+      const sel=S.selCat===cat.id;
       return `<button class="cat-btn tap${sel?" selected":""}" data-action="selcat" data-id="${cat.id}"
         style="${sel?`background:${cat.color};border-color:${cat.color};box-shadow:0 0 18px ${cat.color}44`:""}">
-        <span>${cat.emoji}</span>
-        <span>${cat.label}</span>
-      </button>`;
+        <span>${cat.emoji}</span><span>${cat.label}</span></button>`;
     }).join("");
-
-    const numkeys = ["1","2","3","4","5","6","7","8","9",".","0","⌫"];
-    const numpad = numkeys.map(k=>
-      `<button class="num-btn tap${k==="⌫"?" del":""}" data-action="digit" data-val="${k}">${k}</button>`
-    ).join("");
-
-    let saveCls = "save-btn";
-    let saveTxt = "Guardar gasto";
+    const numkeys=["1","2","3","4","5","6","7","8","9",".","0","⌫"];
+    const numpad=numkeys.map(k=>
+      `<button class="num-btn tap${k==="⌫"?" del":""}" data-action="digit" data-val="${k}">${k}</button>`).join("");
+    let saveCls="save-btn",saveTxt="Guardar gasto";
     if(S.saved){saveCls+=" done";saveTxt="✓ Guardado";}
     else if(canSave&&S.shared){saveCls+=" shared-ready";saveTxt="💑 Guardar compartido";}
     else if(canSave){saveCls+=" ready";}
 
-    html += `<div style="padding:0 18px">
+    html+=`<div style="padding:0 18px">
       <div class="card">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
           <div style="display:flex;gap:6px">${pills}</div>
           <div style="font-size:11px;color:#2e2e3a">${fmtDate(today())}</div>
         </div>
-        <div class="amount-display${S.amount?" has-value":""}" style="font-size:${amtFs}px">
-          ${curSym(S.currency)}${S.amount||"0"}
-        </div>
+        <div class="amount-display${S.amount?" has-value":""}" style="font-size:${amtFs}px">${curSym(S.currency)}${S.amount||"0"}</div>
         <input id="note-input" placeholder="Nota (opcional)" value="${S.note}"
           style="margin-top:10px;font-size:13px;color:#666;border-top:1px solid #1e1e26;padding-top:10px;width:100%;background:transparent;outline:none;border-left:none;border-right:none;border-bottom:none;font-family:'DM Sans',sans-serif;"/>
         <div style="margin-top:14px;display:flex;align-items:center;justify-content:space-between;${S.shared?"background:#9B6EFF11;border-radius:12px;padding:10px 12px;margin-left:-12px;margin-right:-12px":""}">
@@ -230,45 +240,34 @@ function render() {
               <div style="font-size:10px;color:${S.shared?"#9B6EFF":"#333"}">Lo pagás vos, es de los dos</div>
             </div>
           </div>
-          <div class="toggle${S.shared?" on":""}" data-action="toggle">
-            <div class="toggle-knob"></div>
-          </div>
+          <div class="toggle${S.shared?" on":""}" data-action="toggle"><div class="toggle-knob"></div></div>
         </div>
       </div>
-
       <div style="margin-bottom:12px">
         <div class="section-lbl">Categoría</div>
-        <div class="cat-grid">
-          ${cats}
+        <div class="cat-grid">${cats}
           <button class="cat-add tap" data-action="openmodal">
             <span style="font-size:20px;color:#333">＋</span>
             <span style="font-size:9px;color:#333;font-weight:600">Nueva</span>
           </button>
         </div>
       </div>
-
       <div class="numpad">${numpad}</div>
-
       <button class="${saveCls}" data-action="save"${!canSave&&!S.saved?" disabled":""}>${saveTxt}</button>
     </div>`;
   }
 
-  // ── HISTORY ──
-  if(S.screen==="history") {
-    const fil = S.filter==="shared" ? S.expenses.filter(e=>e.shared)
-              : S.filter==="mine"   ? S.expenses.filter(e=>!e.shared)
-              : S.expenses;
-    const grp = fil.reduce((a,e)=>{a[e.date]=a[e.date]||[];a[e.date].push(e);return a;},{});
-
-    const fpills = [["all","Todos"],["mine","Solo míos"],["shared","Compartidos 💑"]].map(([v,l])=>
-      `<button class="filter-pill tap${S.filter===v?" active":""}" data-action="filter" data-val="${v}">${l}</button>`
-    ).join("");
-
-    let rows = "";
-    const dates = Object.keys(grp).sort((a,b)=>b.localeCompare(a));
+  // HISTORY
+  if(S.screen==="history"){
+    const fil=S.filter==="shared"?S.expenses.filter(e=>e.shared):S.filter==="mine"?S.expenses.filter(e=>!e.shared):S.expenses;
+    const grp=fil.reduce((a,e)=>{a[e.date]=a[e.date]||[];a[e.date].push(e);return a;},{});
+    const fpills=[["all","Todos"],["mine","Solo míos"],["shared","Compartidos 💑"]].map(([v,l])=>
+      `<button class="filter-pill tap${S.filter===v?" active":""}" data-action="filter" data-val="${v}">${l}</button>`).join("");
+    let rows="";
+    const dates=Object.keys(grp).sort((a,b)=>b.localeCompare(a));
     if(!dates.length) rows=`<div style="text-align:center;color:#333;margin-top:60px;font-size:14px">Sin movimientos</div>`;
     dates.forEach(date=>{
-      const items = grp[date].map(e=>{
+      const items=grp[date].map(e=>{
         const cat=getCat(e.categoryId);
         return `<div class="expense-card${e.shared?" shared":""}">
           <div class="cat-icon" style="background:${cat.color}22">${cat.emoji}</div>
@@ -297,16 +296,16 @@ function render() {
     </div>`;
   }
 
-  // ── SETTINGS ──
-  if(S.screen==="settings") {
-    const catRows = S.categories.map(cat=>`
+  // SETTINGS
+  if(S.screen==="settings"){
+    const catRows=S.categories.map(cat=>`
       <div class="settings-cat">
         <div style="width:34px;height:34px;border-radius:9px;background:${cat.color}33;display:flex;align-items:center;justify-content:center;font-size:17px">${cat.emoji}</div>
         <div style="flex:1;font-size:14px;color:#bbb">${cat.label}</div>
         <button data-action="delcat" data-id="${cat.id}" style="color:#2a2a35;font-size:16px;background:transparent;border:none;cursor:pointer">🗑</button>
       </div>`).join("");
 
-    let shSum = "";
+    let shSum="";
     if(shCnt>0){
       let lines="";
       ["UYU","USD","ARS"].forEach(c=>{
@@ -316,37 +315,47 @@ function render() {
           <span style="font-family:'DM Mono',monospace;font-size:13px;color:#C4AAFF">${fmtAmt(t,c)}</span>
         </div>`;
       });
-      shSum=`<div style="margin-top:24px;background:#16161C;border-radius:16px;padding:16px 18px;border:1px solid #9B6EFF33">
+      shSum=`<div style="margin-top:16px;background:#16161C;border-radius:16px;padding:16px 18px;border:1px solid #9B6EFF33">
         <div style="font-size:11px;color:#9B6EFF;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px">💑 Gastos compartidos — ${monthLabel()}</div>
         ${lines}
         <div style="font-size:10px;color:#333;margin-top:8px;border-top:1px solid #1e1e26;padding-top:8px">Corresponde dividir con Andrea</div>
       </div>`;
     }
 
+    // Export section
+    const totalExp = S.expenses.length;
+    const moExpCount = moExp.length;
+
     html+=`<div style="padding:0 18px">
-      <div class="section-lbl">Categorías</div>
+      <div class="section-lbl">Exportar</div>
+      <button class="export-btn tap" data-action="openexport">
+        <span style="font-size:20px">📤</span>
+        <div style="text-align:left">
+          <div style="font-size:13px;font-weight:600;color:#ccc">Exportar a CSV</div>
+          <div style="font-size:10px;color:#555">${moExpCount} gastos este mes · ${totalExp} en total</div>
+        </div>
+      </button>
+
+      <div style="margin-top:20px" class="section-lbl">Categorías</div>
       ${catRows}
       <button class="tap" data-action="openmodal" style="background:#16161C;border:2px dashed #2a2a35;border-radius:14px;padding:15px;color:#444;font-size:14px;text-align:center;width:100%;cursor:pointer">+ Agregar categoría</button>
       ${shSum}
     </div>`;
   }
 
-  // ── NAV ──
+  // NAV
   html+=`<div class="bottom-nav">
     <button class="nav-btn tap${S.screen==="home"?" active":""} big-icon" data-action="nav" data-val="home"><span>＋</span><span>Nuevo</span></button>
     <button class="nav-btn tap${S.screen==="history"?" active":""}" data-action="nav" data-val="history"><span>📋</span><span>Historial</span></button>
     <button class="nav-btn tap${S.screen==="settings"?" active":""}" data-action="nav" data-val="settings"><span>⚙️</span><span>Config</span></button>
   </div>`;
 
-  // ── MODAL ──
+  // CAT MODAL
   if(S.modal){
-    const eg = EMOJIS.map(em=>
-      `<div class="emoji-btn tap${S.newEmoji===em?" selected":""}" data-action="newemoji" data-val="${em}">${em}</div>`
-    ).join("");
-    const cd = COLORS.map(c=>
-      `<div class="color-dot tap${S.newColor===c?" selected":""}" data-action="newcolor" data-val="${c}" style="background:${c}"></div>`
-    ).join("");
-
+    const eg=EMOJIS.map(em=>
+      `<div class="emoji-btn tap${S.newEmoji===em?" selected":""}" data-action="newemoji" data-val="${em}">${em}</div>`).join("");
+    const cd=COLORS.map(c=>
+      `<div class="color-dot tap${S.newColor===c?" selected":""}" data-action="newcolor" data-val="${c}" style="background:${c}"></div>`).join("");
     html+=`<div class="modal-overlay" data-action="closemodal">
       <div class="modal-box" data-action="stopclose">
         <div style="font-size:16px;font-weight:600;margin-bottom:18px;color:#F0EEE8">Nueva categoría</div>
@@ -360,74 +369,98 @@ function render() {
     </div>`;
   }
 
+  // EXPORT MODAL
+  if(S.exportModal){
+    html+=`<div class="modal-overlay" data-action="closeexport">
+      <div class="export-modal-box" data-action="stopclose">
+        <div style="font-size:16px;font-weight:600;margin-bottom:6px;color:#F0EEE8">📤 Exportar gastos</div>
+        <div style="font-size:12px;color:#555;margin-bottom:20px">El CSV se abre en Excel, Numbers o Google Sheets</div>
+
+        <div class="export-option tap" data-action="exportmonth">
+          <div class="export-option-icon">📅</div>
+          <div>
+            <div class="export-option-title">Este mes</div>
+            <div class="export-option-desc">${monthLabel()} · ${moExp.length} gastos</div>
+          </div>
+        </div>
+
+        <div class="export-option tap" data-action="exportall">
+          <div class="export-option-icon">📊</div>
+          <div>
+            <div class="export-option-title">Todos los gastos</div>
+            <div class="export-option-desc">${S.expenses.length} gastos en total</div>
+          </div>
+        </div>
+
+        <button data-action="closeexport" style="width:100%;height:48px;border-radius:14px;font-size:14px;color:#555;background:#0F0F13;border:1px solid #2a2a35;margin-top:4px;cursor:pointer;font-family:'DM Sans',sans-serif;">Cancelar</button>
+      </div>
+    </div>`;
+  }
+
   app.innerHTML = html;
 
-  // Re-attach note input listener
-  const ni = document.getElementById("note-input");
-  if(ni) ni.addEventListener("input", e=>{ S.note=e.target.value; });
-
-  const ci = document.getElementById("cat-name-input");
-  if(ci) ci.addEventListener("input", e=>{
+  // Re-attach inputs
+  const ni=document.getElementById("note-input");
+  if(ni) ni.addEventListener("input",e=>{S.note=e.target.value;});
+  const ci=document.getElementById("cat-name-input");
+  if(ci) ci.addEventListener("input",e=>{
     S.newLabel=e.target.value;
     const btn=document.querySelector("[data-action='addcat']");
     if(btn) btn.className="modal-save tap"+(S.newLabel.trim()?" ready":"");
   });
 }
 
-// ── Single event listener on document ──
-document.addEventListener("click", function(e) {
-  const el = e.target.closest("[data-action]");
+// ── Event delegation ──
+document.addEventListener("click",function(e){
+  const el=e.target.closest("[data-action]");
   if(!el) return;
-  const action = el.dataset.action;
-  const val    = el.dataset.val;
-  const id     = el.dataset.id;
+  const action=el.dataset.action;
+  const val=el.dataset.val;
+  const id=el.dataset.id;
 
-  if(action==="stopclose") { e.stopPropagation(); return; }
+  if(action==="stopclose"){e.stopPropagation();return;}
 
-  switch(action) {
-    case "nav":       S.screen=val; break;
-    case "currency":  S.currency=val; break;
-    case "selcat":    S.selCat=id; break;
-    case "toggle":    S.shared=!S.shared; break;
-    case "filter":    S.filter=val; break;
-    case "openmodal": S.modal=true; break;
-    case "closemodal":S.modal=false; break;
-    case "newemoji":  S.newEmoji=val; break;
-    case "newcolor":  S.newColor=val; break;
+  switch(action){
+    case "nav":        S.screen=val; break;
+    case "currency":   S.currency=val; break;
+    case "selcat":     S.selCat=id; break;
+    case "toggle":     S.shared=!S.shared; break;
+    case "filter":     S.filter=val; break;
+    case "openmodal":  S.modal=true; break;
+    case "closemodal": S.modal=false; break;
+    case "openexport": S.exportModal=true; break;
+    case "closeexport":S.exportModal=false; break;
+    case "newemoji":   S.newEmoji=val; break;
+    case "newcolor":   S.newColor=val; break;
+    case "exportmonth":exportCSV("month"); return;
+    case "exportall":  exportCSV("all"); return;
 
     case "digit":
-      if(val==="⌫"){ S.amount=S.amount.slice(0,-1); break; }
+      if(val==="⌫"){S.amount=S.amount.slice(0,-1);break;}
       if(val==="."&&S.amount.includes(".")) break;
-      if(val==="."&&S.amount==="") { S.amount="0."; break; }
-      if(S.amount==="0"&&val!==".") { S.amount=val; break; }
-      S.amount+=val;
-      break;
+      if(val==="."&&S.amount===""){S.amount="0.";break;}
+      if(S.amount==="0"&&val!=="."){S.amount=val;break;}
+      S.amount+=val; break;
 
     case "save":
       if(!S.amount||!S.selCat||S.saved) break;
       S.expenses=[{id:Date.now(),date:today(),amount:parseFloat(S.amount),currency:S.currency,categoryId:S.selCat,note:S.note,shared:S.shared},...S.expenses];
-      persist();
-      S.saved=true;
-      render();
-      setTimeout(()=>{ S.saved=false;S.amount="";S.note="";S.selCat=null;S.shared=false; render(); },950);
+      persist(); S.saved=true; render();
+      setTimeout(()=>{S.saved=false;S.amount="";S.note="";S.selCat=null;S.shared=false;render();},950);
       return;
 
     case "addcat":
       if(!S.newLabel.trim()) break;
       S.categories=[...S.categories,{id:`c${Date.now()}`,label:S.newLabel.trim(),emoji:S.newEmoji,color:S.newColor}];
-      persist();
-      S.modal=false; S.newLabel=""; S.newEmoji="📌"; S.newColor="#26C6A6";
-      break;
+      persist(); S.modal=false; S.newLabel=""; S.newEmoji="📌"; S.newColor="#26C6A6"; break;
 
     case "delexp":
       S.expenses=S.expenses.filter(e=>e.id!==parseInt(id));
-      persist();
-      break;
+      persist(); break;
 
     case "delcat":
       S.categories=S.categories.filter(c=>c.id!==id);
-      persist();
-      break;
+      persist(); break;
   }
   render();
 });
