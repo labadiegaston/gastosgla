@@ -1,143 +1,105 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-  <meta name="apple-mobile-web-app-title" content="Gastos BDD"/>
-  <title>Gastos BDD</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-    html,body{background:#0F0F13;min-height:100vh;overscroll-behavior:none;}
-    body{font-family:'DM Sans',sans-serif;color:#F0EEE8;max-width:430px;margin:0 auto;position:relative;}
-    button{cursor:pointer;border:none;background:transparent;font-family:'DM Sans',sans-serif;color:inherit;}
-    input{outline:none;border:none;background:transparent;color:inherit;font-family:'DM Sans',sans-serif;}
-    .tap{transition:transform 0.1s;} .tap:active{transform:scale(0.91);}
-    ::-webkit-scrollbar{display:none;}
-    #app{padding-bottom:84px;min-height:100vh;}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Gastos BDD"/>
+<title>Gastos BDD</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{background:#0F0F13;min-height:100vh;overscroll-behavior:none;}
+body{font-family:'DM Sans',sans-serif;color:#F0EEE8;max-width:430px;margin:0 auto;}
+button{cursor:pointer;border:none;font-family:'DM Sans',sans-serif;color:inherit;}
+input{outline:none;border:none;font-family:'DM Sans',sans-serif;}
+::-webkit-scrollbar{display:none;}
 
-```
-/* Header */
+#app{padding-bottom:90px;min-height:100vh;}
+
 .header{padding:52px 24px 12px;display:flex;justify-content:space-between;align-items:flex-start;}
-.month-label{font-size:11px;letter-spacing:2px;color:#555;text-transform:uppercase;margin-bottom:5px;}
-.totals{display:flex;flex-wrap:wrap;gap:6px 14px;}
-.total-item{font-size:13px;color:#888;}
-.total-cur{color:#444;}
-.shared-count{margin-top:4px;font-size:11px;color:#9B6EFF;}
+
+/* Bottom nav */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#0F0F13;border-top:1px solid #1a1a22;display:flex;padding:10px 0 28px;z-index:50;}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:transparent;border:none;color:#333;transition:color 0.15s;}
+.nav-btn.active{color:#F0EEE8;}
+.nav-btn span:first-child{font-size:17px;}
+.nav-btn.big-icon span:first-child{font-size:22px;}
+.nav-btn span:last-child{font-size:9px;letter-spacing:0.5px;font-weight:600;}
 
 /* Cards */
 .card{background:#16161C;border-radius:22px;padding:18px 20px;margin-bottom:12px;border:1px solid #1e1e26;}
-.card-sm{background:#16161C;border-radius:16px;padding:13px 15px;border:1px solid #1e1e26;}
 
 /* Currency pills */
-.cur-pills{display:flex;gap:6px;}
-.cur-pill{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:0.5px;transition:all 0.15s;}
+.cur-pill{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:0.5px;transition:all 0.15s;background:#222;color:#555;}
 .cur-pill.active{background:#F0EEE8;color:#0F0F13;}
-.cur-pill.inactive{background:#222;color:#555;}
 
-/* Amount display */
-.amount-display{font-family:'DM Mono',monospace;letter-spacing:-1px;min-height:54px;display:flex;align-items:center;color:#252530;transition:font-size 0.1s;}
+/* Amount */
+.amount-display{font-family:'DM Mono',monospace;letter-spacing:-1px;min-height:54px;display:flex;align-items:center;color:#252530;font-size:44px;}
 .amount-display.has-value{color:#F0EEE8;}
 
-/* Note input */
-.note-input{margin-top:10px;font-size:13px;color:#666;border-top:1px solid #1e1e26;padding-top:10px;width:100%;}
-
-/* Shared toggle */
-.shared-row{margin-top:14px;display:flex;align-items:center;justify-content:space-between;border-radius:12px;padding:10px 12px;transition:all 0.2s;}
-.shared-row.active{background:#9B6EFF11;}
-.toggle{width:46px;height:26px;border-radius:13px;cursor:pointer;position:relative;transition:background 0.25s;flex-shrink:0;}
-.toggle.on{background:#9B6EFF;}
-.toggle.off{background:#2a2a35;}
-.toggle-knob{position:absolute;top:3px;width:20px;height:20px;border-radius:50%;background:#F0EEE8;transition:left 0.22s;}
-.toggle.on .toggle-knob{left:23px;box-shadow:0 0 10px #9B6EFF99;}
-.toggle.off .toggle-knob{left:3px;}
-
-/* Category grid */
+/* Category */
 .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;}
-.cat-btn{border-radius:16px;padding:11px 4px;display:flex;flex-direction:column;align-items:center;gap:5px;transition:all 0.15s;border:2px solid #1e1e26;background:#16161C;}
+.cat-btn{border-radius:16px;padding:11px 4px;display:flex;flex-direction:column;align-items:center;gap:5px;border:2px solid #1e1e26;background:#16161C;transition:all 0.15s;}
 .cat-btn.selected{border-width:2px;}
-.cat-emoji{font-size:20px;}
-.cat-label{font-size:9px;font-weight:600;letter-spacing:0.3px;color:#555;}
-.cat-btn.selected .cat-label{color:#fff;}
+.cat-btn span:first-child{font-size:20px;}
+.cat-btn span:last-child{font-size:9px;font-weight:600;letter-spacing:0.3px;color:#555;}
+.cat-btn.selected span:last-child{color:#fff;}
 .cat-add{background:#16161C;border:2px dashed #2a2a35;border-radius:16px;padding:11px 4px;display:flex;flex-direction:column;align-items:center;gap:5px;}
 
 /* Numpad */
 .numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px;}
-.num-btn{background:#16161C;border-radius:14px;height:58px;font-size:21px;font-family:'DM Mono',monospace;color:#F0EEE8;border:1px solid #1e1e26;transition:background 0.1s;}
-.num-btn.del{background:#1a1a22;font-size:18px;color:#555;}
+.num-btn{background:#16161C;border-radius:14px;height:58px;font-size:21px;font-family:'DM Mono',monospace;color:#F0EEE8;border:1px solid #1e1e26;}
 .num-btn:active{background:#2a2a35;}
+.num-btn.del{background:#1a1a22;font-size:18px;color:#555;}
 
-/* Save button */
-.save-btn{width:100%;height:58px;border-radius:18px;font-size:16px;font-weight:600;letter-spacing:0.3px;transition:all 0.2s;border:1px solid #1e1e26;color:#2a2a35;background:#16161C;}
+/* Save */
+.save-btn{width:100%;height:58px;border-radius:18px;font-size:16px;font-weight:600;letter-spacing:0.3px;transition:all 0.2s;background:#16161C;border:1px solid #1e1e26;color:#2a2a35;}
 .save-btn.ready{background:#F0EEE8;color:#0F0F13;border:none;}
 .save-btn.shared-ready{background:#9B6EFF;color:#fff;border:none;}
 .save-btn.done{background:#26C6A6;color:#fff;border:none;}
 
-/* Bottom nav */
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#0F0F13;border-top:1px solid #1a1a22;display:flex;padding:10px 0 28px;}
-.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;transition:color 0.15s;color:#333;}
-.nav-btn.active{color:#F0EEE8;}
-.nav-emoji{font-size:17px;}
-.nav-emoji.big{font-size:22px;}
-.nav-label{font-size:9px;letter-spacing:0.5px;font-weight:600;}
-
-/* Filter pills */
-.filter-pills{display:flex;gap:7px;margin-bottom:16px;flex-wrap:wrap;}
-.filter-pill{padding:6px 13px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid #1e1e26;background:#16161C;color:#555;transition:all 0.15s;}
-.filter-pill.active{background:#F0EEE8;color:#0F0F13;border:none;}
+/* Toggle */
+.toggle{width:46px;height:26px;border-radius:13px;position:relative;transition:background 0.25s;flex-shrink:0;background:#2a2a35;}
+.toggle.on{background:#9B6EFF;}
+.toggle-knob{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#F0EEE8;transition:left 0.22s;}
+.toggle.on .toggle-knob{left:23px;box-shadow:0 0 10px #9B6EFF99;}
 
 /* History */
-.date-label{font-size:10px;color:#444;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;padding-left:2px;}
-.expense-row{display:flex;align-items:center;gap:11px;}
+.filter-pill{padding:6px 13px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid #1e1e26;background:#16161C;color:#555;}
+.filter-pill.active{background:#F0EEE8;color:#0F0F13;border:none;}
+.expense-card{background:#16161C;border-radius:16px;padding:13px 15px;margin-bottom:7px;display:flex;align-items:center;gap:11px;border:1px solid #1e1e26;}
+.expense-card.shared{border-color:#9B6EFF44;}
 .cat-icon{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
-.expense-meta{flex:1;min-width:0;}
-.expense-name{font-size:13px;font-weight:500;color:#ccc;display:flex;align-items:center;gap:5px;}
 .shared-badge{font-size:9px;background:#9B6EFF22;color:#C4AAFF;padding:1px 6px;border-radius:6px;font-weight:700;}
-.expense-note{font-size:11px;color:#444;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.expense-amount{font-family:'DM Mono',monospace;font-size:14px;color:#F0EEE8;font-weight:500;}
-.expense-cur{font-size:9px;color:#3a3a45;}
-.del-btn{font-size:10px;color:#2a2a35;margin-top:2px;background:transparent;border:none;}
+.del-btn{font-size:11px;color:#2a2a35;background:transparent;border:none;cursor:pointer;margin-top:2px;}
 
 /* Settings */
-.settings-cat-row{background:#16161C;border-radius:14px;padding:13px 15px;display:flex;align-items:center;gap:11px;border:1px solid #1e1e26;margin-bottom:7px;}
-.settings-cat-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;}
-.add-cat-btn{background:#16161C;border:2px dashed #2a2a35;border-radius:14px;padding:15px;color:#444;font-size:14px;text-align:center;width:100%;}
-.shared-summary{margin-top:24px;background:#16161C;border-radius:16px;padding:16px 18px;border:1px solid #9B6EFF33;}
-.shared-summary-title{font-size:11px;color:#9B6EFF;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;}
-.shared-row-line{display:flex;justify-content:space-between;margin-bottom:6px;}
-.shared-row-cur{font-size:12px;color:#555;}
-.shared-row-amt{font-family:'DM Mono',monospace;font-size:13px;color:#C4AAFF;}
-.shared-footer{font-size:10px;color:#333;margin-top:8px;border-top:1px solid #1e1e26;padding-top:8px;}
+.settings-cat{background:#16161C;border-radius:14px;padding:13px 15px;display:flex;align-items:center;gap:11px;border:1px solid #1e1e26;margin-bottom:7px;}
 
 /* Modal */
 .modal-overlay{position:fixed;inset:0;background:#000000cc;display:flex;align-items:flex-end;justify-content:center;z-index:100;}
 .modal-box{background:#16161C;border-radius:24px 24px 0 0;padding:24px 22px 52px;width:100%;max-width:430px;border:1px solid #222;}
-.modal-title{font-size:16px;font-weight:600;margin-bottom:18px;color:#F0EEE8;}
-.modal-input{width:100%;background:#0F0F13;border:1px solid #2a2a35;border-radius:12px;padding:13px 15px;font-size:15px;color:#F0EEE8;margin-bottom:16px;}
-.modal-section-label{font-size:10px;color:#444;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;}
+.modal-input{width:100%;background:#0F0F13;border:1px solid #2a2a35;border-radius:12px;padding:13px 15px;font-size:15px;color:#F0EEE8;margin-bottom:16px;font-family:'DM Sans',sans-serif;}
 .emoji-grid{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
-.emoji-btn{width:38px;height:38px;border-radius:9px;font-size:19px;background:#0F0F13;border:1px solid #2a2a35;display:flex;align-items:center;justify-content:center;}
+.emoji-btn{width:38px;height:38px;border-radius:9px;font-size:19px;background:#0F0F13;border:1px solid #2a2a35;display:flex;align-items:center;justify-content:center;cursor:pointer;}
 .emoji-btn.selected{background:#F0EEE8;}
-.color-row{display:flex;gap:9px;margin-bottom:22px;}
-.color-dot{width:30px;height:30px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:border 0.15s;}
+.color-dot{width:30px;height:30px;border-radius:50%;border:3px solid transparent;cursor:pointer;}
 .color-dot.selected{border-color:#F0EEE8;}
-.modal-save{width:100%;height:52px;border-radius:14px;font-size:15px;font-weight:600;background:#222;color:#555;transition:all 0.15s;}
+.modal-save{width:100%;height:52px;border-radius:14px;font-size:15px;font-weight:600;background:#222;color:#555;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .modal-save.ready{background:#F0EEE8;color:#0F0F13;}
 
-.section-label{font-size:10px;color:#333;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;padding-left:2px;}
-```
-
-  </style>
+.section-lbl{font-size:10px;color:#333;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;padding-left:2px;}
+.tap:active{transform:scale(0.91);}
+</style>
 </head>
 <body>
 <div id="app"></div>
 
 <script>
-const DEFAULT_CATEGORIES = [
+// ── Constants ──
+const DEFAULT_CATS = [
   {id:"hogar",  label:"Hogar",      emoji:"🏠", color:"#4A90D9"},
   {id:"salud",  label:"Salud",      emoji:"💊", color:"#E8A838"},
   {id:"comida", label:"Comida",     emoji:"🍽️", color:"#E85D5D"},
@@ -146,39 +108,36 @@ const DEFAULT_CATEGORIES = [
   {id:"regalo", label:"Regalos",    emoji:"🎁", color:"#26C6A6"},
   {id:"otro",   label:"Otro",       emoji:"📌", color:"#90A4AE"},
 ];
-const EMOJIS  = ["🏠","💊","🍽️","🚗","👗","🎁","📌","☕","🛒","💅","🐶","📚","🎬","✈️","💪","🧴","🌿","🎶","🏋️","🍷"];
-const COLORS  = ["#4A90D9","#E8A838","#E85D5D","#6C63FF","#F06292","#26C6A6","#90A4AE","#FF7043"];
-const MONTHS  = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-
-const SK_EXP  = "bdd_expenses_v2";
-const SK_CAT  = "bdd_categories_v2";
+const EMOJIS = ["🏠","💊","🍽️","🚗","👗","🎁","📌","☕","🛒","💅","🐶","📚","🎬","✈️","💪","🧴","🌿","🎶","🏋️","🍷"];
+const COLORS = ["#4A90D9","#E8A838","#E85D5D","#6C63FF","#F06292","#26C6A6","#90A4AE","#FF7043"];
+const MONTHS = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+const SK_EXP = "bdd_exp_v3";
+const SK_CAT = "bdd_cat_v3";
 
 // ── State ──
-let state = {
+const S = {
   screen:      "home",
-  expenses:    JSON.parse(localStorage.getItem(SK_EXP)  || "[]"),
-  categories:  JSON.parse(localStorage.getItem(SK_CAT)  || "null") || DEFAULT_CATEGORIES,
+  expenses:    load(SK_EXP, []),
+  categories:  load(SK_CAT, DEFAULT_CATS),
   amount:      "",
   currency:    "UYU",
-  selectedCat: null,
+  selCat:      null,
   note:        "",
   shared:      false,
   saved:       false,
-  filterShared:"all",
-  showModal:   false,
+  filter:      "all",
+  modal:       false,
   newLabel:    "",
   newEmoji:    "📌",
   newColor:    "#26C6A6",
 };
 
-function save() {
-  localStorage.setItem(SK_EXP, JSON.stringify(state.expenses));
-  localStorage.setItem(SK_CAT, JSON.stringify(state.categories));
+function load(key, def) {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : def; } catch { return def; }
 }
-
-function setState(patch) {
-  Object.assign(state, patch);
-  render();
+function persist() {
+  localStorage.setItem(SK_EXP, JSON.stringify(S.expenses));
+  localStorage.setItem(SK_CAT, JSON.stringify(S.categories));
 }
 
 // ── Helpers ──
@@ -186,143 +145,102 @@ function today() {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 }
-function currentMonthLabel() {
+function monthLabel() {
   const d = new Date(); return `${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
 }
-function formatDate(str) {
-  const [y,m,d] = str.split("-"); return `${d}/${m}/${y.slice(2)}`;
+function fmtDate(s) { const [y,m,d]=s.split("-"); return `${d}/${m}/${y.slice(2)}`; }
+function fmtAmt(a, c) {
+  if(c==="USD") return `U$S ${a.toLocaleString("es-UY",{minimumFractionDigits:2,maximumFractionDigits:2})}`;
+  if(c==="ARS") return `AR$ ${Math.round(a).toLocaleString("es-AR")}`;
+  return `$ ${Math.round(a).toLocaleString("es-UY")}`;
 }
-function fmtAmt(amount, currency) {
-  if (currency==="USD") return `U$S ${amount.toLocaleString("es-UY",{minimumFractionDigits:2,maximumFractionDigits:2})}`;
-  if (currency==="ARS") return `AR$ ${Math.round(amount).toLocaleString("es-AR")}`;
-  return `$ ${Math.round(amount).toLocaleString("es-UY")}`;
-}
-function currSymbol(c) { return c==="USD"?"U$S ":c==="ARS"?"AR$ ":"$ "; }
-function getCat(id) { return state.categories.find(c=>c.id===id)||{label:"?",emoji:"❓",color:"#999"}; }
-
-function handleDigit(d) {
-  let a = state.amount;
-  if (d==="." && a.includes(".")) return;
-  if (d==="." && a==="") { setState({amount:"0."}); return; }
-  if (a==="0" && d!==".") { setState({amount:d}); return; }
-  setState({amount: a+d});
-}
-
-function handleSave() {
-  if (!state.amount || !state.selectedCat) return;
-  const exp = {id:Date.now(), date:today(), amount:parseFloat(state.amount), currency:state.currency, categoryId:state.selectedCat, note:state.note, shared:state.shared};
-  state.expenses = [exp, ...state.expenses];
-  save();
-  setState({saved:true});
-  setTimeout(()=>setState({saved:false,amount:"",note:"",selectedCat:null,shared:false}), 950);
-}
-
-function addCategory() {
-  if (!state.newLabel.trim()) return;
-  state.categories = [...state.categories, {id:`cat_${Date.now()}`,label:state.newLabel.trim(),emoji:state.newEmoji,color:state.newColor}];
-  save();
-  setState({showModal:false,newLabel:"",newEmoji:"📌",newColor:"#26C6A6"});
-}
-
-function deleteExpense(id) {
-  state.expenses = state.expenses.filter(e=>e.id!==id);
-  save(); render();
-}
-
-function deleteCategory(id) {
-  state.categories = state.categories.filter(c=>c.id!==id);
-  save(); render();
-}
+function curSym(c) { return c==="USD"?"U$S ":c==="ARS"?"AR$ ":"$ "; }
+function getCat(id) { return S.categories.find(c=>c.id===id)||{label:"?",emoji:"❓",color:"#999"}; }
 
 // ── Render ──
 function render() {
-  const s = state;
-  const thisMonth = today().slice(0,7);
-  const monthExp  = s.expenses.filter(e=>e.date.startsWith(thisMonth));
-  const totalUYU  = monthExp.filter(e=>e.currency==="UYU").reduce((a,e)=>a+e.amount,0);
-  const totalUSD  = monthExp.filter(e=>e.currency==="USD").reduce((a,e)=>a+e.amount,0);
-  const totalARS  = monthExp.filter(e=>e.currency==="ARS").reduce((a,e)=>a+e.amount,0);
-  const sharedCnt = monthExp.filter(e=>e.shared).length;
-  const canSave   = s.amount && s.selectedCat;
+  const app = document.getElementById("app");
+  const thisMo = today().slice(0,7);
+  const moExp  = S.expenses.filter(e=>e.date.startsWith(thisMo));
+  const tUYU   = moExp.filter(e=>e.currency==="UYU").reduce((s,e)=>s+e.amount,0);
+  const tUSD   = moExp.filter(e=>e.currency==="USD").reduce((s,e)=>s+e.amount,0);
+  const tARS   = moExp.filter(e=>e.currency==="ARS").reduce((s,e)=>s+e.amount,0);
+  const shCnt  = moExp.filter(e=>e.shared).length;
+  const canSave = S.amount && S.selCat;
+  const amtFs  = S.amount ? Math.min(50,Math.max(26,50-S.amount.length*1.8)) : 44;
 
-  const amtFontSize = s.amount ? Math.min(50,Math.max(26,50-s.amount.length*1.8)) : 44;
+  // Header totals
+  let tots = "";
+  if(tUYU>0) tots+=`<span style="font-size:13px;color:#888">$ ${Math.round(tUYU).toLocaleString("es-UY")} <span style="color:#444">UYU</span></span>`;
+  if(tUSD>0) tots+=`<span style="font-size:13px;color:#888">U$S ${tUSD.toFixed(2)} <span style="color:#444">USD</span></span>`;
+  if(tARS>0) tots+=`<span style="font-size:13px;color:#888">AR$ ${Math.round(tARS).toLocaleString("es-AR")} <span style="color:#444">ARS</span></span>`;
+  if(!tUYU&&!tUSD&&!tARS) tots=`<span style="font-size:13px;color:#333">Sin gastos este mes</span>`;
 
-  // ── Header ──
-  let totalsHtml = "";
-  if(totalUYU>0) totalsHtml+=`<span class="total-item">$ ${Math.round(totalUYU).toLocaleString("es-UY")} <span class="total-cur">UYU</span></span>`;
-  if(totalUSD>0) totalsHtml+=`<span class="total-item">U$S ${totalUSD.toFixed(2)} <span class="total-cur">USD</span></span>`;
-  if(totalARS>0) totalsHtml+=`<span class="total-item">AR$ ${Math.round(totalARS).toLocaleString("es-AR")} <span class="total-cur">ARS</span></span>`;
-  if(!totalUYU&&!totalUSD&&!totalARS) totalsHtml=`<span style="font-size:13px;color:#333">Sin gastos este mes</span>`;
-
-  let html = `
-  <div class="header">
+  let html = `<div class="header">
     <div>
-      <div class="month-label">${currentMonthLabel()}</div>
-      <div class="totals">${totalsHtml}</div>
-      ${sharedCnt>0?`<div class="shared-count">💑 ${sharedCnt} gasto${sharedCnt>1?"s":""} compartido${sharedCnt>1?"s":""}</div>`:""}
+      <div style="font-size:11px;letter-spacing:2px;color:#555;text-transform:uppercase;margin-bottom:5px">${monthLabel()}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px 14px">${tots}</div>
+      ${shCnt>0?`<div style="margin-top:4px;font-size:11px;color:#9B6EFF">💑 ${shCnt} gasto${shCnt>1?"s":""} compartido${shCnt>1?"s":""}</div>`:""}
     </div>
     <div style="font-size:22px;opacity:0.45">💲</div>
   </div>`;
 
   // ── HOME ──
-  if (s.screen==="home") {
-    // Currency pills
-    const pills = ["UYU","USD","ARS"].map(c=>`
-      <button class="cur-pill tap ${s.currency===c?"active":"inactive"}" onclick="setState({currency:'${c}'}">${c}</button>`).join("");
+  if(S.screen==="home") {
+    const pills = ["UYU","USD","ARS"].map(c=>
+      `<button class="cur-pill${S.currency===c?" active":""}" data-action="currency" data-val="${c}">${c}</button>`
+    ).join("");
 
-    // Category buttons
-    const catBtns = s.categories.map(cat=>{
-      const sel = s.selectedCat===cat.id;
-      return `<button class="cat-btn tap${sel?" selected":""}" 
-        style="${sel?`background:${cat.color};border-color:${cat.color};box-shadow:0 0 18px ${cat.color}44`:""}"
-        onclick="setState({selectedCat:'${cat.id}'})">
-        <span class="cat-emoji">${cat.emoji}</span>
-        <span class="cat-label">${cat.label}</span>
+    const cats = S.categories.map(cat=>{
+      const sel = S.selCat===cat.id;
+      return `<button class="cat-btn tap${sel?" selected":""}" data-action="selcat" data-id="${cat.id}"
+        style="${sel?`background:${cat.color};border-color:${cat.color};box-shadow:0 0 18px ${cat.color}44`:""}">
+        <span>${cat.emoji}</span>
+        <span>${cat.label}</span>
       </button>`;
     }).join("");
 
-    // Numpad
-    const keys = ["1","2","3","4","5","6","7","8","9",".","0","⌫"];
-    const numpad = keys.map(k=>`
-      <button class="num-btn tap${k==="⌫"?" del":""}" onclick="${k==="⌫"?"setState({amount:state.amount.slice(0,-1)})":"handleDigit('"+k+"')"}">${k}</button>`).join("");
+    const numkeys = ["1","2","3","4","5","6","7","8","9",".","0","⌫"];
+    const numpad = numkeys.map(k=>
+      `<button class="num-btn tap${k==="⌫"?" del":""}" data-action="digit" data-val="${k}">${k}</button>`
+    ).join("");
 
-    // Save button class
-    let saveClass = "save-btn";
-    let saveText  = "Guardar gasto";
-    if (s.saved) { saveClass+=" done"; saveText="✓ Guardado"; }
-    else if (canSave && s.shared) { saveClass+=" shared-ready"; saveText="💑 Guardar compartido"; }
-    else if (canSave) { saveClass+=" ready"; saveText="Guardar gasto"; }
+    let saveCls = "save-btn";
+    let saveTxt = "Guardar gasto";
+    if(S.saved){saveCls+=" done";saveTxt="✓ Guardado";}
+    else if(canSave&&S.shared){saveCls+=" shared-ready";saveTxt="💑 Guardar compartido";}
+    else if(canSave){saveCls+=" ready";}
 
     html += `<div style="padding:0 18px">
       <div class="card">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-          <div class="cur-pills">${pills}</div>
-          <div style="font-size:11px;color:#2e2e3a">${formatDate(today())}</div>
+          <div style="display:flex;gap:6px">${pills}</div>
+          <div style="font-size:11px;color:#2e2e3a">${fmtDate(today())}</div>
         </div>
-        <div class="amount-display${s.amount?" has-value":""}" style="font-size:${amtFontSize}px">
-          ${currSymbol(s.currency)}${s.amount||"0"}
+        <div class="amount-display${S.amount?" has-value":""}" style="font-size:${amtFs}px">
+          ${curSym(S.currency)}${S.amount||"0"}
         </div>
-        <input class="note-input" placeholder="Nota (opcional)" value="${s.note.replace(/"/g,'&quot;')}"
-          oninput="state.note=this.value" />
-        <div class="shared-row${s.shared?" active":""}" style="${s.shared?"margin:14px -12px 0;padding:10px 12px":"margin-top:14px;padding:0"}">
+        <input id="note-input" placeholder="Nota (opcional)" value="${S.note}"
+          style="margin-top:10px;font-size:13px;color:#666;border-top:1px solid #1e1e26;padding-top:10px;width:100%;background:transparent;outline:none;border-left:none;border-right:none;border-bottom:none;font-family:'DM Sans',sans-serif;"/>
+        <div style="margin-top:14px;display:flex;align-items:center;justify-content:space-between;${S.shared?"background:#9B6EFF11;border-radius:12px;padding:10px 12px;margin-left:-12px;margin-right:-12px":""}">
           <div style="display:flex;align-items:center;gap:9px">
             <span style="font-size:18px">💑</span>
             <div>
-              <div style="font-size:12px;font-weight:600;color:${s.shared?"#C4AAFF":"#555"}">Gasto compartido</div>
-              <div style="font-size:10px;color:${s.shared?"#9B6EFF":"#333"}">Lo pagás vos, es de los dos</div>
+              <div style="font-size:12px;font-weight:600;color:${S.shared?"#C4AAFF":"#555"}">Gasto compartido</div>
+              <div style="font-size:10px;color:${S.shared?"#9B6EFF":"#333"}">Lo pagás vos, es de los dos</div>
             </div>
           </div>
-          <div class="toggle ${s.shared?"on":"off"}" onclick="setState({shared:!state.shared})">
+          <div class="toggle${S.shared?" on":""}" data-action="toggle">
             <div class="toggle-knob"></div>
           </div>
         </div>
       </div>
 
       <div style="margin-bottom:12px">
-        <div class="section-label">Categoría</div>
+        <div class="section-lbl">Categoría</div>
         <div class="cat-grid">
-          ${catBtns}
-          <button class="cat-add tap" onclick="setState({showModal:true})">
+          ${cats}
+          <button class="cat-add tap" data-action="openmodal">
             <span style="font-size:20px;color:#333">＋</span>
             <span style="font-size:9px;color:#333;font-weight:600">Nueva</span>
           </button>
@@ -331,118 +249,190 @@ function render() {
 
       <div class="numpad">${numpad}</div>
 
-      <button class="${saveClass}" onclick="handleSave()"${!canSave?" disabled":""}>${saveText}</button>
+      <button class="${saveCls}" data-action="save"${!canSave&&!S.saved?" disabled":""}>${saveTxt}</button>
     </div>`;
   }
 
   // ── HISTORY ──
-  if (s.screen==="history") {
-    const filtered = s.filterShared==="shared" ? s.expenses.filter(e=>e.shared)
-                   : s.filterShared==="mine"   ? s.expenses.filter(e=>!e.shared)
-                   : s.expenses;
+  if(S.screen==="history") {
+    const fil = S.filter==="shared" ? S.expenses.filter(e=>e.shared)
+              : S.filter==="mine"   ? S.expenses.filter(e=>!e.shared)
+              : S.expenses;
+    const grp = fil.reduce((a,e)=>{a[e.date]=a[e.date]||[];a[e.date].push(e);return a;},{});
 
-    const grouped = filtered.reduce((acc,e)=>{acc[e.date]=acc[e.date]||[];acc[e.date].push(e);return acc;},{});
-
-    const filterPills = [["all","Todos"],["mine","Solo míos"],["shared","Compartidos 💑"]].map(([val,label])=>
-      `<button class="filter-pill tap${s.filterShared===val?" active":""}" onclick="setState({filterShared:'${val}'})">${label}</button>`).join("");
+    const fpills = [["all","Todos"],["mine","Solo míos"],["shared","Compartidos 💑"]].map(([v,l])=>
+      `<button class="filter-pill tap${S.filter===v?" active":""}" data-action="filter" data-val="${v}">${l}</button>`
+    ).join("");
 
     let rows = "";
-    const dates = Object.keys(grouped).sort((a,b)=>b.localeCompare(a));
-    if (!dates.length) rows = `<div style="text-align:center;color:#333;margin-top:60px;font-size:14px">Sin movimientos</div>`;
+    const dates = Object.keys(grp).sort((a,b)=>b.localeCompare(a));
+    if(!dates.length) rows=`<div style="text-align:center;color:#333;margin-top:60px;font-size:14px">Sin movimientos</div>`;
     dates.forEach(date=>{
-      const items = grouped[date].map(e=>{
+      const items = grp[date].map(e=>{
         const cat=getCat(e.categoryId);
-        return `<div class="card-sm" style="margin-bottom:7px;border-color:${e.shared?"#9B6EFF44":"#1e1e26"}">
-          <div class="expense-row">
-            <div class="cat-icon" style="background:${cat.color}22">${cat.emoji}</div>
-            <div class="expense-meta">
-              <div class="expense-name">${cat.label}${e.shared?`<span class="shared-badge">💑</span>`:""}</div>
-              ${e.note?`<div class="expense-note">${e.note}</div>`:""}
+        return `<div class="expense-card${e.shared?" shared":""}">
+          <div class="cat-icon" style="background:${cat.color}22">${cat.emoji}</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:13px;font-weight:500;color:#ccc;display:flex;align-items:center;gap:5px">
+              ${cat.label}${e.shared?`<span class="shared-badge">💑</span>`:""}
             </div>
-            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
-              <div class="expense-amount">${fmtAmt(e.amount,e.currency)}</div>
-              <div class="expense-cur">${e.currency}</div>
-              <button class="del-btn" onclick="deleteExpense(${e.id})">✕</button>
-            </div>
+            ${e.note?`<div style="font-size:11px;color:#444;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${e.note}</div>`:""}
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
+            <div style="font-family:'DM Mono',monospace;font-size:14px;color:#F0EEE8;font-weight:500">${fmtAmt(e.amount,e.currency)}</div>
+            <div style="font-size:9px;color:#3a3a45">${e.currency}</div>
+            <button class="del-btn" data-action="delexp" data-id="${e.id}">✕</button>
           </div>
         </div>`;
       }).join("");
-      rows += `<div style="margin-bottom:22px"><div class="date-label">${formatDate(date)}</div>${items}</div>`;
+      rows+=`<div style="margin-bottom:22px">
+        <div style="font-size:10px;color:#444;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;padding-left:2px">${fmtDate(date)}</div>
+        ${items}
+      </div>`;
     });
 
-    html += `<div style="padding:0 18px">
-      <div class="filter-pills">${filterPills}</div>
+    html+=`<div style="padding:0 18px">
+      <div style="display:flex;gap:7px;margin-bottom:16px;flex-wrap:wrap">${fpills}</div>
       ${rows}
     </div>`;
   }
 
   // ── SETTINGS ──
-  if (s.screen==="settings") {
-    const catRows = s.categories.map(cat=>`
-      <div class="settings-cat-row">
-        <div class="settings-cat-icon" style="background:${cat.color}33">${cat.emoji}</div>
+  if(S.screen==="settings") {
+    const catRows = S.categories.map(cat=>`
+      <div class="settings-cat">
+        <div style="width:34px;height:34px;border-radius:9px;background:${cat.color}33;display:flex;align-items:center;justify-content:center;font-size:17px">${cat.emoji}</div>
         <div style="flex:1;font-size:14px;color:#bbb">${cat.label}</div>
-        <button class="tap" onclick="deleteCategory('${cat.id}')" style="color:#2a2a35;font-size:16px">🗑</button>
+        <button data-action="delcat" data-id="${cat.id}" style="color:#2a2a35;font-size:16px;background:transparent;border:none;cursor:pointer">🗑</button>
       </div>`).join("");
 
-    let sharedSummary = "";
-    if (sharedCnt>0) {
-      let lines = "";
-      ["UYU","USD","ARS"].forEach(cur=>{
-        const t = monthExp.filter(e=>e.shared&&e.currency===cur).reduce((a,e)=>a+e.amount,0);
-        if(t) lines+=`<div class="shared-row-line"><span class="shared-row-cur">${cur}</span><span class="shared-row-amt">${fmtAmt(t,cur)}</span></div>`;
+    let shSum = "";
+    if(shCnt>0){
+      let lines="";
+      ["UYU","USD","ARS"].forEach(c=>{
+        const t=moExp.filter(e=>e.shared&&e.currency===c).reduce((s,e)=>s+e.amount,0);
+        if(t) lines+=`<div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <span style="font-size:12px;color:#555">${c}</span>
+          <span style="font-family:'DM Mono',monospace;font-size:13px;color:#C4AAFF">${fmtAmt(t,c)}</span>
+        </div>`;
       });
-      sharedSummary = `<div class="shared-summary">
-        <div class="shared-summary-title">💑 Gastos compartidos — ${currentMonthLabel()}</div>
+      shSum=`<div style="margin-top:24px;background:#16161C;border-radius:16px;padding:16px 18px;border:1px solid #9B6EFF33">
+        <div style="font-size:11px;color:#9B6EFF;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px">💑 Gastos compartidos — ${monthLabel()}</div>
         ${lines}
-        <div class="shared-footer">Corresponde dividir con Andrea</div>
+        <div style="font-size:10px;color:#333;margin-top:8px;border-top:1px solid #1e1e26;padding-top:8px">Corresponde dividir con Andrea</div>
       </div>`;
     }
 
-    html += `<div style="padding:0 18px">
-      <div class="section-label">Categorías</div>
+    html+=`<div style="padding:0 18px">
+      <div class="section-lbl">Categorías</div>
       ${catRows}
-      <button class="add-cat-btn tap" onclick="setState({showModal:true})">+ Agregar categoría</button>
-      ${sharedSummary}
+      <button class="tap" data-action="openmodal" style="background:#16161C;border:2px dashed #2a2a35;border-radius:14px;padding:15px;color:#444;font-size:14px;text-align:center;width:100%;cursor:pointer">+ Agregar categoría</button>
+      ${shSum}
     </div>`;
   }
 
-  // ── BOTTOM NAV ──
-  const navItems = [{id:"home",emoji:"＋",label:"Nuevo",big:true},{id:"history",emoji:"📋",label:"Historial"},{id:"settings",emoji:"⚙️",label:"Config"}];
-  html += `<div class="bottom-nav">
-    ${navItems.map(t=>`
-      <button class="nav-btn${s.screen===t.id?" active":""}" onclick="setState({screen:'${t.id}'})">
-        <span class="${t.big?"nav-emoji big":"nav-emoji"}">${t.emoji}</span>
-        <span class="nav-label">${t.label}</span>
-      </button>`).join("")}
+  // ── NAV ──
+  html+=`<div class="bottom-nav">
+    <button class="nav-btn tap${S.screen==="home"?" active":""} big-icon" data-action="nav" data-val="home"><span>＋</span><span>Nuevo</span></button>
+    <button class="nav-btn tap${S.screen==="history"?" active":""}" data-action="nav" data-val="history"><span>📋</span><span>Historial</span></button>
+    <button class="nav-btn tap${S.screen==="settings"?" active":""}" data-action="nav" data-val="settings"><span>⚙️</span><span>Config</span></button>
   </div>`;
 
   // ── MODAL ──
-  if (s.showModal) {
-    const emojiGrid = EMOJIS.map(em=>
-      `<button class="emoji-btn tap${s.newEmoji===em?" selected":""}" onclick="setState({newEmoji:'${em}'})">${em}</button>`).join("");
-    const colorDots = COLORS.map(col=>
-      `<div class="color-dot tap${s.newColor===col?" selected":""}" style="background:${col}" onclick="setState({newColor:'${col}'})"></div>`).join("");
+  if(S.modal){
+    const eg = EMOJIS.map(em=>
+      `<div class="emoji-btn tap${S.newEmoji===em?" selected":""}" data-action="newemoji" data-val="${em}">${em}</div>`
+    ).join("");
+    const cd = COLORS.map(c=>
+      `<div class="color-dot tap${S.newColor===c?" selected":""}" data-action="newcolor" data-val="${c}" style="background:${c}"></div>`
+    ).join("");
 
-    html += `<div class="modal-overlay" onclick="setState({showModal:false})">
-      <div class="modal-box" onclick="event.stopPropagation()">
-        <div class="modal-title">Nueva categoría</div>
-        <input class="modal-input" placeholder="Nombre (ej: Farmacia)" value="${s.newLabel}"
-          oninput="state.newLabel=this.value;document.querySelector('.modal-save').className='modal-save tap'+(state.newLabel.trim()?' ready':'')"/>
-        <div class="modal-section-label">Ícono</div>
-        <div class="emoji-grid">${emojiGrid}</div>
-        <div class="modal-section-label">Color</div>
-        <div class="color-row">${colorDots}</div>
-        <button class="modal-save tap${s.newLabel.trim()?" ready":""}" onclick="addCategory()">Agregar</button>
+    html+=`<div class="modal-overlay" data-action="closemodal">
+      <div class="modal-box" data-action="stopclose">
+        <div style="font-size:16px;font-weight:600;margin-bottom:18px;color:#F0EEE8">Nueva categoría</div>
+        <input id="cat-name-input" class="modal-input" placeholder="Nombre (ej: Farmacia)" value="${S.newLabel}"/>
+        <div style="font-size:10px;color:#444;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">Ícono</div>
+        <div class="emoji-grid">${eg}</div>
+        <div style="font-size:10px;color:#444;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">Color</div>
+        <div style="display:flex;gap:9px;margin-bottom:22px">${cd}</div>
+        <button class="modal-save tap${S.newLabel.trim()?" ready":""}" data-action="addcat">Agregar</button>
       </div>
     </div>`;
   }
 
-  document.getElementById("app").innerHTML = html;
+  app.innerHTML = html;
+
+  // Re-attach note input listener
+  const ni = document.getElementById("note-input");
+  if(ni) ni.addEventListener("input", e=>{ S.note=e.target.value; });
+
+  const ci = document.getElementById("cat-name-input");
+  if(ci) ci.addEventListener("input", e=>{
+    S.newLabel=e.target.value;
+    const btn=document.querySelector("[data-action='addcat']");
+    if(btn) btn.className="modal-save tap"+(S.newLabel.trim()?" ready":"");
+  });
 }
+
+// ── Single event listener on document ──
+document.addEventListener("click", function(e) {
+  const el = e.target.closest("[data-action]");
+  if(!el) return;
+  const action = el.dataset.action;
+  const val    = el.dataset.val;
+  const id     = el.dataset.id;
+
+  if(action==="stopclose") { e.stopPropagation(); return; }
+
+  switch(action) {
+    case "nav":       S.screen=val; break;
+    case "currency":  S.currency=val; break;
+    case "selcat":    S.selCat=id; break;
+    case "toggle":    S.shared=!S.shared; break;
+    case "filter":    S.filter=val; break;
+    case "openmodal": S.modal=true; break;
+    case "closemodal":S.modal=false; break;
+    case "newemoji":  S.newEmoji=val; break;
+    case "newcolor":  S.newColor=val; break;
+
+    case "digit":
+      if(val==="⌫"){ S.amount=S.amount.slice(0,-1); break; }
+      if(val==="."&&S.amount.includes(".")) break;
+      if(val==="."&&S.amount==="") { S.amount="0."; break; }
+      if(S.amount==="0"&&val!==".") { S.amount=val; break; }
+      S.amount+=val;
+      break;
+
+    case "save":
+      if(!S.amount||!S.selCat||S.saved) break;
+      S.expenses=[{id:Date.now(),date:today(),amount:parseFloat(S.amount),currency:S.currency,categoryId:S.selCat,note:S.note,shared:S.shared},...S.expenses];
+      persist();
+      S.saved=true;
+      render();
+      setTimeout(()=>{ S.saved=false;S.amount="";S.note="";S.selCat=null;S.shared=false; render(); },950);
+      return;
+
+    case "addcat":
+      if(!S.newLabel.trim()) break;
+      S.categories=[...S.categories,{id:`c${Date.now()}`,label:S.newLabel.trim(),emoji:S.newEmoji,color:S.newColor}];
+      persist();
+      S.modal=false; S.newLabel=""; S.newEmoji="📌"; S.newColor="#26C6A6";
+      break;
+
+    case "delexp":
+      S.expenses=S.expenses.filter(e=>e.id!==parseInt(id));
+      persist();
+      break;
+
+    case "delcat":
+      S.categories=S.categories.filter(c=>c.id!==id);
+      persist();
+      break;
+  }
+  render();
+});
 
 render();
 </script>
-
 </body>
 </html>
